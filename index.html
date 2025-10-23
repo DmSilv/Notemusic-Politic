@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoteMusic - Aprenda Música de Forma Interativa</title>
+    <meta name="description" content="NoteMusic é um aplicativo educacional que transforma o aprendizado musical através de quizzes interativos, gamificação e progressão estruturada. Desenvolvedor: Daniel Silva">
+    <meta name="keywords" content="música, educação, quiz musical, teoria musical, aprendizado interativo, gamificação">
+    <meta name="robots" content="index, follow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Cores do Design System NoteMusic */
+            --primary: #007AFF;
+            --primary-dark: #0056CC;
+            --primary-light: #B3D9FF;
+            --secondary: #0A8CD6;
+            --secondary-dark: #085A94;
+            --secondary-light: #7BBDE8;
+            --success: #4CAF50;
+            --warning: #FF9800;
+            --error: #F44336;
+            --info: #2196F3;
+            --white: #FFFFFF;
+            --black: #000000;
+            --dark: #131313;
+            --medium: #545454;
+            --light: #F8F9FA;
+            --border: #E9ECEF;
+            --divider: #F1F1F1;
+            --background: #FFFFFF;
+            --background-secondary: #F8F9FA;
+            --background-card: #FFFFFF;
+            --text-primary: #131313;
+            --text-secondary: #545454;
+            --text-light: #6C757D;
+            --text-white: #FFFFFF;
+            --accent: #E5944A;
+            
+            /* Espaçamentos */
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 12px;
+            --spacing-lg: 16px;
+            --spacing-xl: 20px;
+            --spacing-xxl: 24px;
+            --spacing-xxxl: 32px;
+            
+            /* Tipografia */
+            --font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-size-xs: 12px;
+            --font-size-sm: 14px;
+            --font-size-md: 16px;
+            --font-size-lg: 18px;
+            --font-size-xl: 20px;
+            --font-size-xxl: 24px;
+            --font-size-xxxl: 32px;
+            --font-size-title: 28px;
+            --font-size-display: 36px;
+            
+            /* Sombras */
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+            
+            /* Bordas */
+            --border-radius-sm: 8px;
+            --border-radius-md: 12px;
+            --border-radius-lg: 16px;
+            --border-radius-xl: 20px;
+            --border-radius-full: 26px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: linear-gradient(135deg, var(--background-secondary) 0%, var(--white) 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-lg);
+        }
+
+        /* Header Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--text-white);
+            padding: var(--spacing-xxxl) var(--spacing-lg);
+            border-radius: 0 0 var(--border-radius-xl) var(--border-radius-xl);
+            text-align: center;
+            margin-bottom: var(--spacing-xxxl);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="music" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23music)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xxl);
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .logo svg {
+            width: 60px;
+            height: 60px;
+        }
+
+        .app-name {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .tagline {
+            font-size: var(--font-size-xl);
+            font-weight: 300;
+            opacity: 0.9;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .description {
+            font-size: var(--font-size-lg);
+            font-weight: 400;
+            opacity: 0.95;
+            margin-bottom: var(--spacing-xxl);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Cards de Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-xxl);
+            margin-bottom: var(--spacing-xxxl);
+        }
+
+        .feature-card {
+            background: var(--background-card);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xxxl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-lg);
+            color: var(--text-white);
+            font-size: var(--font-size-xxxl);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .feature-title {
+            font-size: var(--font-size-xxl);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            font-size: var(--font-size-md);
+            line-height: 1.6;
+        }
+
+        /* Sistema de Níveis */
+        .levels-section {
+            background: var(--background-card);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xxxl);
+            margin-bottom: var(--spacing-xxxl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xxxl);
+        }
+
+        .section-title {
+            font-size: var(--font-size-title);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .section-subtitle {
+            font-size: var(--font-size-lg);
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .levels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-xl);
+        }
+
+        .level-card {
+            background: var(--light);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xxl);
+            text-align: center;
+            border-left: 4px solid;
+            transition: all 0.3s ease;
+        }
+
+        .level-card.aprendiz {
+            border-left-color: var(--success);
+        }
+
+        .level-card.virtuoso {
+            border-left-color: var(--warning);
+        }
+
+        .level-card.maestro {
+            border-left-color: var(--primary);
+        }
+
+        .level-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .level-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-md);
+            color: var(--text-white);
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+        }
+
+        .level-icon.aprendiz {
+            background: var(--success);
+        }
+
+        .level-icon.virtuoso {
+            background: var(--warning);
+        }
+
+        .level-icon.maestro {
+            background: var(--primary);
+        }
+
+        .level-name {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .level-description {
+            color: var(--text-secondary);
+            font-size: var(--font-size-sm);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--text-white);
+            padding: var(--spacing-xxxl);
+            border-radius: var(--border-radius-lg);
+            text-align: center;
+            margin-bottom: var(--spacing-xxxl);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .cta-title {
+            font-size: var(--font-size-title);
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .cta-description {
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--spacing-xxl);
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: var(--spacing-lg);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: var(--spacing-md) var(--spacing-xxl);
+            border-radius: var(--border-radius-full);
+            font-size: var(--font-size-md);
+            font-weight: 700;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+            min-height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+        }
+
+        .btn-primary {
+            background: var(--white);
+            color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-white);
+            border-color: var(--text-white);
+        }
+
+        .btn-outline:hover {
+            background: var(--text-white);
+            color: var(--primary);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: var(--text-white);
+            padding: var(--spacing-xxxl) var(--spacing-lg);
+            text-align: center;
+            margin-top: var(--spacing-xxxl);
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            color: var(--primary-light);
+        }
+
+        .contact-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius-md);
+            margin-top: var(--spacing-lg);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .container {
+                padding: var(--spacing-md);
+            }
+            
+            .hero {
+                padding: var(--spacing-xl) var(--spacing-md);
+            }
+            
+            .app-name {
+                font-size: 36px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-xl);
+            }
+            
+            .feature-card {
+                padding: var(--spacing-xl);
+            }
+            
+            .levels-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Animações */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .feature-card:nth-child(2) { animation-delay: 0.1s; }
+        .feature-card:nth-child(3) { animation-delay: 0.2s; }
+        .feature-card:nth-child(4) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="logo-container">
+                    <div class="logo">
+                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100" height="100" rx="20" fill="#007AFF"/>
+                            <path d="M30 30h40v10H30V30z" fill="white"/>
+                            <path d="M30 50h40v10H30V50z" fill="white"/>
+                            <path d="M30 70h40v10H30V70z" fill="white"/>
+                            <circle cx="75" cy="35" r="8" fill="#0A8CD6"/>
+                            <circle cx="75" cy="55" r="8" fill="#0A8CD6"/>
+                            <circle cx="75" cy="75" r="8" fill="#0A8CD6"/>
+                        </svg>
+                    </div>
+                    <h1 class="app-name">NoteMusic</h1>
+                    <p class="tagline">Transforme seu aprendizado musical</p>
+                </div>
+                <p class="description">
+                    Descubra o mundo da música através de quizzes interativos, gamificação envolvente e progressão estruturada. 
+                    Do iniciante ao maestro, sua jornada musical começa aqui.
+                </p>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-music"></i>
+                </div>
+                <h3 class="feature-title">Quizzes Interativos</h3>
+                <p class="feature-description">
+                    Aprenda teoria musical através de perguntas e respostas dinâmicas. 
+                    Cada quiz é projetado para reforçar conceitos fundamentais de forma divertida e eficaz.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h3 class="feature-title">Sistema de Gamificação</h3>
+                <p class="feature-description">
+                    Ganhe pontos, mantenha streaks e desbloqueie conquistas. 
+                    O sistema de gamificação torna o aprendizado viciante e motivador.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="feature-title">Progressão Estruturada</h3>
+                <p class="feature-description">
+                    Evolua através de três níveis: Aprendiz, Virtuoso e Maestro. 
+                    Cada nível oferece conteúdo apropriado para seu estágio de aprendizado.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-calendar-day"></i>
+                </div>
+                <h3 class="feature-title">Desafios Diários</h3>
+                <p class="feature-description">
+                    Mantenha-se engajado com desafios especiais todos os dias. 
+                    Uma forma perfeita de praticar regularmente e acelerar seu progresso.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="feature-title">Privacidade Garantida</h3>
+                <p class="feature-description">
+                    Seus dados estão seguros conosco. Não compartilhamos informações pessoais 
+                    e seguimos as melhores práticas de segurança e privacidade.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3 class="feature-title">Interface Intuitiva</h3>
+                <p class="feature-description">
+                    Design moderno e responsivo que se adapta perfeitamente ao seu dispositivo. 
+                    Experiência de usuário otimizada para máxima usabilidade.
+                </p>
+            </div>
+        </section>
+
+        <!-- Levels Section -->
+        <section class="levels-section">
+            <div class="section-header">
+                <h2 class="section-title">Sua Jornada Musical</h2>
+                <p class="section-subtitle">
+                    Progrida através de três níveis cuidadosamente estruturados, cada um com conteúdo 
+                    apropriado para seu estágio de aprendizado musical.
+                </p>
+            </div>
+
+            <div class="levels-grid">
+                <div class="level-card aprendiz">
+                    <div class="level-icon aprendiz">A</div>
+                    <h3 class="level-name">Aprendiz</h3>
+                    <p class="level-description">
+                        Comece sua jornada com conceitos básicos de música. 
+                        Ideal para iniciantes que querem construir uma base sólida.
+                    </p>
+                </div>
+
+                <div class="level-card virtuoso">
+                    <div class="level-icon virtuoso">V</div>
+                    <h3 class="level-name">Virtuoso</h3>
+                    <p class="level-description">
+                        Aprofunde seus conhecimentos com teoria musical avançada. 
+                        Para quem já domina o básico e quer evoluir.
+                    </p>
+                </div>
+
+                <div class="level-card maestro">
+                    <div class="level-icon maestro">M</div>
+                    <h3 class="level-name">Maestro</h3>
+                    <p class="level-description">
+                        Alcance a maestria com conceitos complexos e especializados. 
+                        O nível mais alto para verdadeiros conhecedores da música.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h2 class="cta-title">Pronto para Começar?</h2>
+            <p class="cta-description">
+                Baixe o NoteMusic agora e transforme sua paixão por música em conhecimento sólido. 
+                Sua jornada musical está apenas a um toque de distância.
+            </p>
+            <div class="cta-buttons">
+                <a href="https://play.google.com/store" class="btn btn-primary">
+                    <i class="fab fa-google-play"></i> Baixar no Google Play
+                </a>
+                <a href="mailto:suporte.notemusic@gmail.com?subject=Dúvida sobre o NoteMusic" class="btn btn-outline">
+                    <i class="fas fa-envelope"></i> Entrar em Contato
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">NoteMusic</div>
+            <p>Desenvolvido com <i class="fas fa-heart" style="color: #e74c3c;"></i> por Daniel Silva</p>
+            <p>Transformando o aprendizado musical através da tecnologia</p>
+            <div class="contact-info">
+                <p><strong><i class="fas fa-envelope"></i> Suporte:</strong> suporte.notemusic@gmail.com</p>
+                <p><strong><i class="fas fa-globe"></i> Plataforma:</strong> Google Play Store</p>
+                <p><strong><i class="fas fa-code-branch"></i> GitHub:</strong> <a href="https://github.com/DmSilv" target="_blank" style="color: var(--primary-light);">github.com/DmSilv</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
