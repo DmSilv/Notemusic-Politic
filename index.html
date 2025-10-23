@@ -165,10 +165,23 @@
             margin-bottom: var(--spacing-sm);
         }
 
-        .logo-image {
+        .logo-circle {
             width: 60px;
             height: 60px;
-            object-fit: contain;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .logo-letters {
+            color: var(--text-white);
+            font-size: 20px;
+            font-weight: 700;
+            font-family: var(--font-family-bold);
+            letter-spacing: -1px;
         }
 
         .app-name {
@@ -529,7 +542,9 @@
             <div class="hero-content">
                 <div class="logo-container">
                 <div class="logo">
-                    <img src="https://raw.githubusercontent.com/DmSilv/NoteMusic/main/assets/images/LogoNM.png" alt="NoteMusic Logo" class="logo-image">
+                    <div class="logo-circle">
+                        <span class="logo-letters">NM</span>
+                    </div>
                 </div>
                     <h1 class="app-name">NoteMusic</h1>
                     <p class="tagline">Transforme seu aprendizado musical</p>
