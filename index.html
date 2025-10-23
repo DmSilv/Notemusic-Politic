@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            /* Cores do Design System NoteMusic */
+            /* Cores do Design System NoteMusic - FIDELIDADE TOTAL AO APP */
             --primary: #007AFF;
             --primary-dark: #0056CC;
             --primary-light: #B3D9FF;
@@ -40,6 +40,22 @@
             --text-white: #FFFFFF;
             --accent: #E5944A;
             
+            /* CORES DOS NÍVEIS - EXATAS DO APP */
+            --aprendiz-primary: #43BBFF;
+            --aprendiz-secondary: #E8F4FD;
+            --aprendiz-accent: #C6E8FF;
+            --aprendiz-text: #1976D2;
+            
+            --virtuoso-primary: #5A8BB8;
+            --virtuoso-secondary: #F0F4F8;
+            --virtuoso-accent: #B8D4E8;
+            --virtuoso-text: #2E5B8A;
+            
+            --maestro-primary: #FF8C00;
+            --maestro-secondary: #FFF4E6;
+            --maestro-accent: #FFB366;
+            --maestro-text: #CC5500;
+            
             /* Espaçamentos */
             --spacing-xs: 4px;
             --spacing-sm: 8px;
@@ -49,8 +65,12 @@
             --spacing-xxl: 24px;
             --spacing-xxxl: 32px;
             
-            /* Tipografia */
+            /* Tipografia - FONTES EXATAS DO APP */
             --font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-family-regular: 'Roboto-Regular', 'Roboto', sans-serif;
+            --font-family-medium: 'Roboto-Medium', 'Roboto', sans-serif;
+            --font-family-bold: 'Roboto-Bold', 'Roboto', sans-serif;
+            --font-family-light: 'Roboto-Light', 'Roboto', sans-serif;
             --font-size-xs: 12px;
             --font-size-sm: 14px;
             --font-size-md: 16px;
@@ -81,7 +101,7 @@
         }
 
         body {
-            font-family: var(--font-family);
+            font-family: var(--font-family-regular);
             background: linear-gradient(135deg, var(--background-secondary) 0%, var(--white) 100%);
             color: var(--text-primary);
             line-height: 1.6;
@@ -145,14 +165,16 @@
             margin-bottom: var(--spacing-sm);
         }
 
-        .logo svg {
+        .logo-image {
             width: 60px;
             height: 60px;
+            object-fit: contain;
         }
 
         .app-name {
             font-size: 48px;
             font-weight: 700;
+            font-family: var(--font-family-bold);
             margin-bottom: var(--spacing-sm);
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
@@ -160,6 +182,7 @@
         .tagline {
             font-size: var(--font-size-xl);
             font-weight: 300;
+            font-family: var(--font-family-light);
             opacity: 0.9;
             margin-bottom: var(--spacing-lg);
         }
@@ -226,6 +249,7 @@
         .feature-title {
             font-size: var(--font-size-xxl);
             font-weight: 700;
+            font-family: var(--font-family-bold);
             color: var(--text-primary);
             margin-bottom: var(--spacing-md);
         }
@@ -254,6 +278,7 @@
         .section-title {
             font-size: var(--font-size-title);
             font-weight: 700;
+            font-family: var(--font-family-bold);
             color: var(--text-primary);
             margin-bottom: var(--spacing-md);
         }
@@ -281,15 +306,18 @@
         }
 
         .level-card.aprendiz {
-            border-left-color: var(--success);
+            border-left-color: var(--aprendiz-primary);
+            background: var(--aprendiz-secondary);
         }
 
         .level-card.virtuoso {
-            border-left-color: var(--warning);
+            border-left-color: var(--virtuoso-primary);
+            background: var(--virtuoso-secondary);
         }
 
         .level-card.maestro {
-            border-left-color: var(--primary);
+            border-left-color: var(--maestro-primary);
+            background: var(--maestro-secondary);
         }
 
         .level-card:hover {
@@ -311,21 +339,30 @@
         }
 
         .level-icon.aprendiz {
-            background: var(--success);
+            background: var(--aprendiz-primary);
+            color: var(--text-white);
         }
 
         .level-icon.virtuoso {
-            background: var(--warning);
+            background: var(--virtuoso-primary);
+            color: var(--text-white);
         }
 
         .level-icon.maestro {
-            background: var(--primary);
+            background: var(--maestro-primary);
+            color: var(--text-white);
         }
 
-        .level-name {
-            font-size: var(--font-size-xl);
-            font-weight: 700;
-            margin-bottom: var(--spacing-sm);
+        .level-name.aprendiz {
+            color: var(--aprendiz-text);
+        }
+
+        .level-name.virtuoso {
+            color: var(--virtuoso-text);
+        }
+
+        .level-name.maestro {
+            color: var(--maestro-text);
         }
 
         .level-description {
@@ -491,17 +528,9 @@
         <section class="hero">
             <div class="hero-content">
                 <div class="logo-container">
-                    <div class="logo">
-                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="100" height="100" rx="20" fill="#007AFF"/>
-                            <path d="M30 30h40v10H30V30z" fill="white"/>
-                            <path d="M30 50h40v10H30V50z" fill="white"/>
-                            <path d="M30 70h40v10H30V70z" fill="white"/>
-                            <circle cx="75" cy="35" r="8" fill="#0A8CD6"/>
-                            <circle cx="75" cy="55" r="8" fill="#0A8CD6"/>
-                            <circle cx="75" cy="75" r="8" fill="#0A8CD6"/>
-                        </svg>
-                    </div>
+                <div class="logo">
+                    <img src="https://raw.githubusercontent.com/DmSilv/NoteMusic/main/assets/images/LogoNM.png" alt="NoteMusic Logo" class="logo-image">
+                </div>
                     <h1 class="app-name">NoteMusic</h1>
                     <p class="tagline">Transforme seu aprendizado musical</p>
                 </div>
@@ -594,7 +623,7 @@
             <div class="levels-grid">
                 <div class="level-card aprendiz">
                     <div class="level-icon aprendiz">A</div>
-                    <h3 class="level-name">Aprendiz</h3>
+                    <h3 class="level-name aprendiz">Aprendiz</h3>
                     <p class="level-description">
                         Comece sua jornada com conceitos básicos de música. 
                         Ideal para iniciantes que querem construir uma base sólida.
@@ -603,7 +632,7 @@
 
                 <div class="level-card virtuoso">
                     <div class="level-icon virtuoso">V</div>
-                    <h3 class="level-name">Virtuoso</h3>
+                    <h3 class="level-name virtuoso">Virtuoso</h3>
                     <p class="level-description">
                         Aprofunde seus conhecimentos com teoria musical avançada. 
                         Para quem já domina o básico e quer evoluir.
@@ -612,7 +641,7 @@
 
                 <div class="level-card maestro">
                     <div class="level-icon maestro">M</div>
-                    <h3 class="level-name">Maestro</h3>
+                    <h3 class="level-name maestro">Maestro</h3>
                     <p class="level-description">
                         Alcance a maestria com conceitos complexos e especializados. 
                         O nível mais alto para verdadeiros conhecedores da música.
